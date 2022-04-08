@@ -1,22 +1,17 @@
-kind: pipeline
-type: docker
+kind: pipeline # 对象类型，有 pipeline、secret 和 signature 等类型
+type: exec # 流水线类型，有 docker、kubernetes、exec、ssh 等类型
 name: linux_amd64
 
-environment:
-  GOOS: linux
-  GOARCH: amd64
-  CGO_ENABLED: 0
+platform:
+  os: linux
+  arch: amd64
 
 steps:
-  - name: build-linux-amd64
-    image: alpine:latest
+  - name: clone
+    environment:
+      GOOS: linux
+      GOARCH: amd64
+      CGO_ENABLED: 0
     commands:
-      - make build
-      - ./build/linux/amd64/hello-drone -h
-
-  - name: notify
-    image: alpine:latest
-    commands:
-      - echo "Done!"
-    depends_on:
-      - build-linux-amd64
+      - go build
+      - go test

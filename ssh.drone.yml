@@ -1,0 +1,27 @@
+kind: pipeline # 对象类型，还有 secret 和 signature 两种类型
+type: docker # 流水线类型，还有 kubernetes、exec、ssh 等类型
+name: linux_amd64
+
+environment:
+  GOOS: linux
+  GOARCH: amd64
+  CGO_ENABLED: 0
+
+steps:
+  - name: build-linux-amd64
+    image: appleboy/drone-ssh # SSH 工具镜像
+    settings:
+      host: 152.136.115.31
+      username: ubuntu
+      password:
+        from_secret: ssh_password # 在 Drone 中配置密码
+      script:
+        - echo ===build begin===
+        - make build
+
+  - name: notify
+    image: alpine:latest
+    commands:
+      - echo "Done!"
+    depends_on:
+      - build-linux-amd64
