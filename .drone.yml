@@ -8,15 +8,15 @@ platform:
 
 steps:
   - name: test
-    commands:
-      - echo "==== test & build ===="
-      - /usr/local/go/bin/go test
-      - /usr/local/go/bin/go build -o server
-  - name: run
     environment:
       GOOS: linux
       GOARCH: amd64
       CGO_ENABLED: 0
     commands:
+      - echo "==== test & build ===="
+      - /usr/local/go/bin/go test
+      - /usr/local/go/bin/go build -o server
+  - name: run
+    commands:
       - echo "==== run ===="
-      - ./server
+      - ./server &
