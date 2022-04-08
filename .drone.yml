@@ -9,7 +9,7 @@ platform:
 steps:
   - name: test
     commands:
-      - echo ==== test & build ====
+      - echo "==== test & build ===="
       - go test
       - go build -o server
   - name: run
@@ -18,5 +18,5 @@ steps:
       GOARCH: amd64
       CGO_ENABLED: 0
     commands:
-      - echo ==== run ====
+      - echo "==== run ===="
       - ./server
