@@ -1,17 +1,25 @@
 kind: pipeline # 对象类型，有 pipeline、secret 和 signature 等类型
 type: exec # 流水线类型，有 docker、kubernetes、exec、ssh 等类型
-name: linux_amd64
+name: drone-golang-example
 
 platform:
   os: linux
   arch: amd64
 
 steps:
-  - name: clone
+  - name: hello
+    commands:
+      - echo ====hello====
+  - name: test
+    commands:
+      - go test
+  - name: build
     environment:
       GOOS: linux
       GOARCH: amd64
       CGO_ENABLED: 0
     commands:
-      - go build
-      - go test
+      - go build -o server
+  - name: run
+    commands:
+      - ./server

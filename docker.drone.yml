@@ -10,17 +10,9 @@ environment:
 steps:
   - name: build-linux-amd64
     image: appleboy/drone-ssh # SSH 工具镜像
-    # commands:
-    #   - make build
-    #   - ./build/linux/amd64/hello-drone -h
-    settings:
-      host: 152.136.115.31
-      username: ubuntu
-      password:
-        from_secret: ssh_password # 在 Drone 中配置密码
-      script:
-        - echo ===build begin===
-        - make build
+    commands:
+      - make build
+      - ./build/linux/amd64/hello-drone -h
 
   - name: notify
     image: alpine:latest
