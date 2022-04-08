@@ -7,19 +7,16 @@ platform:
   arch: amd64
 
 steps:
-  - name: hello
-    commands:
-      - echo ====hello====
   - name: test
     commands:
+      - echo ==== test & build ====
       - go test
-  - name: build
+      - go build -o server
+  - name: run
     environment:
       GOOS: linux
       GOARCH: amd64
       CGO_ENABLED: 0
     commands:
-      - go build -o server
-  - name: run
-    commands:
+      - echo ==== run ====
       - ./server
