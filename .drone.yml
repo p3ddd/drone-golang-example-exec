@@ -7,13 +7,13 @@ platform:
   arch: amd64
 
 steps:
-  - name: stop
-    commands:
-      - /bin/sh scripts/stop.sh
-
   - name: copy
     commands:
-      - /bin/cp -rf ./ /opt/drone-golang-example
+      - cp -rf ./ /opt/drone-golang-example
+
+  - name: stop
+    commands:
+      - sh scripts/stop.sh
 
   - name: test & build
     environment:
@@ -21,12 +21,12 @@ steps:
       GOARCH: amd64
       CGO_ENABLED: 0
     commands:
-      - /usr/bin/whoami
+      - whoami
       - cd /opt/drone-golang-example
       - echo "==== test ===="
-      - /usr/local/go/bin/go test
+      - go test
       - echo "==== build ===="
-      - /usr/local/go/bin/go build
+      - go build
     when:
       branch:
         - main
@@ -35,7 +35,7 @@ steps:
     commands:
       - echo "==== run ===="
       - cd /opt/drone-golang-example
-      - /usr/bin/nohup ./drone-golang-example 2>&1 > web.log &
+      - nohup ./drone-golang-example 2>&1 > web.log &
     when:
       branch:
         - main
