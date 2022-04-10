@@ -9,17 +9,25 @@ platform:
 steps:
   - name: stop
     commands:
-      - sh scripts/stop.sh
-  - name: test
+      - ./scripts/stop.sh
+  - name: run
     environment:
       GOOS: linux
       GOARCH: amd64
       CGO_ENABLED: 0
     commands:
-      - echo "==== test & build ===="
+      - echo "==== test ===="
       - /usr/local/go/bin/go test
+      - echo "==== build ===="
       - /usr/local/go/bin/go build -o drone-golang-example
-  - name: run
-    commands:
       - echo "==== run ===="
       - ./drone-golang-example &
+    when:
+      branch:
+        - main
+  - name: notify
+    commands:
+      - echo "failure"
+    when:
+      status:
+        - failure
