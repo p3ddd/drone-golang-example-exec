@@ -7,6 +7,9 @@ platform:
   arch: amd64
 
 steps:
+  - name: stop
+    commands:
+      - sh scripts/stop.sh
   - name: test
     environment:
       GOOS: linux
@@ -15,8 +18,8 @@ steps:
     commands:
       - echo "==== test & build ===="
       - /usr/local/go/bin/go test
-      - /usr/local/go/bin/go build -o server
+      - /usr/local/go/bin/go build -o drone-golang-example
   - name: run
     commands:
       - echo "==== run ===="
-      - ./server &
+      - ./drone-golang-example &
