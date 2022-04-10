@@ -7,5 +7,5 @@ if [ ! ${id} ]
 then
     echo "项目未启动"
 else
-    kill -9 $id
+    sudo kill -9 $id
 fi

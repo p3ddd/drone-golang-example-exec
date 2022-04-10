@@ -21,7 +21,7 @@ steps:
       - echo "==== test ===="
       - /usr/local/go/bin/go test
       - echo "==== build ===="
-      - /usr/local/go/bin/go build -o drone-golang-example
+      - /usr/local/go/bin/go build
     when:
       branch:
         - main
@@ -29,7 +29,7 @@ steps:
   - name: run
     commands:
       - echo "==== run ===="
-      - ./drone-golang-example &
+      - /usr/bin/nohup ./drone-golang-example 2>&1 > web.log &
     when:
       branch:
         - main
