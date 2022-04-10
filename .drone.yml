@@ -11,7 +11,7 @@ steps:
     commands:
       - /bin/sh scripts/stop.sh
 
-  - name: run
+  - name: test & build
     environment:
       GOOS: linux
       GOARCH: amd64
