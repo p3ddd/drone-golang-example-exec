@@ -10,6 +10,8 @@ steps:
   - name: copy
     commands:
       - cp -rf ./ /opt/drone-golang-example
+      - chown ubuntu:ubuntu -R /opt/drone-golang-example
+      - chmod 755 -R /opt/drone-golang-example
 
   - name: stop
     commands:
@@ -36,6 +38,7 @@ steps:
       - echo "==== run ===="
       - cd /opt/drone-golang-example
       - nohup ./drone-golang-example 2>&1 > web.log &
+      - echo "running"
     when:
       branch:
         - main
@@ -46,3 +49,9 @@ steps:
     when:
       status:
         - failure
+
+trigger:
+  branch:
+    - main
+  event:
+    - push

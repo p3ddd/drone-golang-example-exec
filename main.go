@@ -11,9 +11,9 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", index)
-	// http.ListenAndServe(":7007", nil)
-	err := http.ListenAndServe(":7007", nil)
-	if err != nil {
-		fmt.Println(err)
-	}
+	http.ListenAndServe(":7007", nil)
+	// err := http.ListenAndServe(":7007", nil)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
 }
