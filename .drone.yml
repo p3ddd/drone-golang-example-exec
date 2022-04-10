@@ -10,6 +10,7 @@ steps:
   - name: stop
     commands:
       - /bin/sh scripts/stop.sh
+
   - name: run
     environment:
       GOOS: linux
@@ -20,11 +21,18 @@ steps:
       - /usr/local/go/bin/go test
       - echo "==== build ===="
       - /usr/local/go/bin/go build -o drone-golang-example
+    when:
+      branch:
+        - main
+
+  - name: run
+    commands:
       - echo "==== run ===="
       - ./drone-golang-example &
     when:
       branch:
         - main
+
   - name: notify
     commands:
       - echo "failure"

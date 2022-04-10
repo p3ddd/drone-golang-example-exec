@@ -6,8 +6,7 @@ import (
 )
 
 func index(w http.ResponseWriter, r *http.Request) {
-	// w.Write([]byte("hello"))
-	fmt.Fprintf(w, "Hello world!\n自动部署成功")
+	fmt.Fprintf(w, "Hello world!\n自动部署成功\n13")
 }
 
 func main() {
