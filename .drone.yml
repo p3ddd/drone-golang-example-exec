@@ -13,7 +13,7 @@ steps:
 
   - name: copy
     commands:
-      - cp -rf ./ /opt/drone-golang-example
+      - /bin/cp -rf ./ /opt/drone-golang-example
 
   - name: test & build
     environment:
