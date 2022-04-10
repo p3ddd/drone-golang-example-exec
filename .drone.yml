@@ -9,8 +9,7 @@ platform:
 steps:
   - name: stop
     commands:
-      - chmod +x ./scripts/stop.sh
-      - ./scripts/stop.sh
+      - /bin/sh scripts/stop.sh
   - name: run
     environment:
       GOOS: linux
