@@ -11,10 +11,6 @@ steps:
     commands:
       - /bin/sh scripts/stop.sh
 
-  - name: copy
-    commands:
-      - cp -rf ./ /opt/drone-golang-example
-
   - name: test & build
     environment:
       GOOS: linux
@@ -22,7 +18,6 @@ steps:
       CGO_ENABLED: 0
     commands:
       - /usr/bin/whoami
-      - cd /opt/drone-golang-example
       - echo "==== test ===="
       - /usr/local/go/bin/go test
       - echo "==== build ===="
@@ -34,7 +29,6 @@ steps:
   - name: run
     commands:
       - echo "==== run ===="
-      - cd /opt/drone-golang-example
       - /usr/bin/nohup ./drone-golang-example 2>&1 > web.log &
     when:
       branch:
