@@ -7,16 +7,6 @@ platform:
   arch: amd64
 
 steps:
-  - name: copy
-    commands:
-      - cp -rf ./ /opt/drone-golang-example
-      - chown ubuntu:ubuntu -R /opt/drone-golang-example
-      - chmod 755 -R /opt/drone-golang-example
-
-  - name: stop
-    commands:
-      - sh scripts/stop.sh
-
   - name: test & build
     environment:
       GOOS: linux
@@ -24,24 +14,34 @@ steps:
       CGO_ENABLED: 0
     commands:
       - whoami
-      - cd /opt/drone-golang-example
+      # - cd /opt/drone-golang-example
       - echo "==== test ===="
       - go test
       - echo "==== build ===="
-      - go build
-    when:
-      branch:
-        - main
+      - go build -o server
+    # when:
+    #   branch:
+    #     - main
+
+  - name: copy
+    commands:
+      - cp -rf ./server /opt/drone-golang-example/server
+      - chown ubuntu:ubuntu /opt/drone-golang-example/server
+      - chmod 755 /opt/drone-golang-example/server
+
+  - name: stop
+    commands:
+      - sh scripts/stop.sh
 
   - name: run
     commands:
       - echo "==== run ===="
       - cd /opt/drone-golang-example
-      - nohup ./drone-golang-example 2>&1 > web.log &
+      - nohup ./server 2>&1 > web.log &
       - echo "running"
-    when:
-      branch:
-        - main
+    # when:
+    #   branch:
+    #     - main
 
   - name: notify
     commands:

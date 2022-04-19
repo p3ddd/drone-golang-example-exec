@@ -1,3 +1,3 @@
-module drone-golang-example
+module drone-golang-example-exec
 
 go 1.18
